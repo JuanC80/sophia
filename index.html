@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Para Sophia </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100dvh;
+      background: radial-gradient(circle at center, #241133 0%, #12071a 60%, #08030c 100%);
+      font-family: 'Montserrat', sans-serif;
+      color: #fcebf2;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(235, 185, 110, 0.18) 0%, rgba(199, 125, 255, 0.12) 50%, transparent 75%);
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #envelope-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      background: radial-gradient(circle at center, #241133 0%, #12071a 70%, #08030c 100%);
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+    }
+
+    .envelope-box {
+      width: 170px;
+      height: 120px;
+      background: linear-gradient(145deg, #fdfbf7, #e2d9cc);
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 25px rgba(235, 185, 110, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope-box:active {
+      transform: scale(0.96);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 85px solid transparent;
+      border-right: 85px solid transparent;
+      border-top: 65px solid #d8cbba;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+    }
+
+    .wax-seal {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      background: radial-gradient(circle, #7a2b4a, #4a152d);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffd7a8;
+      font-size: 16px;
+      z-index: 2;
+    }
+
+    .open-hint {
+      margin-top: 25px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #f3d299;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.65; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    #main-content {
+      width: 100%;
+      max-width: 580px;
+      padding: 24px 18px 60px;
+      opacity: 0;
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      transition: opacity 1.5s ease 0.4s, visibility 1.5s ease 0.4s;
+    }
+
+    .bouquet-wrapper {
+      width: 100%;
+      max-width: 380px;
+      height: 440px;
+      position: relative;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .stem, .leaf, .bow {
+      opacity: 0;
+      transform-origin: 200px 420px;
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: scaleY(0.1);
+    }
+
+    .bloom {
+      opacity: 0;
+      transform-origin: center;
+      transform: scale(0);
+      transition: opacity 1.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .loaded .stem, .loaded .leaf, .loaded .bow {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+
+    .loaded .bloom {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .delay-1 { transition-delay: 0.4s; }
+    .delay-2 { transition-delay: 0.9s; }
+    .delay-3 { transition-delay: 1.3s; }
+    .delay-4 { transition-delay: 1.7s; }
+    .delay-5 { transition-delay: 2.1s; }
+
+    .letter-card {
+      width: 100%;
+      background: rgba(25, 12, 35, 0.55);
+      border: 1px solid rgba(235, 185, 110, 0.25);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px;
+      padding: 30px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 1.5s ease 2.6s, transform 1.5s ease 2.6s;
+    }
+
+    .loaded .letter-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      color: #ffd782;
+      text-align: center;
+      margin-bottom: 22px;
+      letter-spacing: 1px;
+    }
+
+    .letter-text {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: #edd9e5;
+      font-weight: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+
+    .letter-text p {
+      margin: 0;
+    }
+
+    .farewell {
+      font-weight: 500;
+      color: #ffd782;
+      margin-top: 10px;
+    }
+
+    .music-pill {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: rgba(30, 15, 42, 0.7);
+      border: 1px solid rgba(235, 185, 110, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      color: #ffd782;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease;
+    }
+
+    .music-pill.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .music-pill.playing .icon-spin {
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <audio id="bg-audio" src="musica.mp3" loop preload="auto"></audio>
+
+  <div id="music-btn" class="music-pill" onclick="toggleAudio()">
+    <span class="icon-spin">🎵</span>
+    <span id="music-state">Pausar</span>
+  </div>
+
+  <div id="envelope-screen" onclick="startExperience()">
+    <div class="envelope-box">
+      <div class="envelope-flap" id="flap"></div>
+      <div class="wax-seal">✦</div>
+    </div>
+    <div class="open-hint">
+      <span>Abrir</span> ✉️
+    </div>
+  </div>
+
+  <div id="main-content">
+    
+    <div class="bouquet-wrapper">
+      <svg viewBox="0 0 400 480">
+        <defs>
+          <linearGradient id="sunPetal" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff176"/>
+            <stop offset="50%" stop-color="#fbc02d"/>
+            <stop offset="100%" stop-color="#e65100"/>
+          </linearGradient>
+          <radialGradient id="sunCenter" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#4e342e"/>
+            <stop offset="60%" stop-color="#3e2723"/>
+            <stop offset="100%" stop-color="#1b0000"/>
+          </radialGradient>
+          <linearGradient id="tulipGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffb7b2"/>
+            <stop offset="70%" stop-color="#f06292"/>
+            <stop offset="100%" stop-color="#ad1457"/>
+          </linearGradient>
+          <linearGradient id="lilyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="60%" stop-color="#e1bee7"/>
+            <stop offset="100%" stop-color="#ab47bc"/>
+          </linearGradient>
+          <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2e7d32"/>
+            <stop offset="100%" stop-color="#1b5e20"/>
+          </linearGradient>
+          <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f8bbd0"/>
+            <stop offset="50%" stop-color="#ec407a"/>
+            <stop offset="100%" stop-color="#ad1457"/>
+          </linearGradient>
+        </defs>
+
+        <g class="stem delay-1" stroke="url(#stemGrad)" stroke-width="5" stroke-linecap="round" fill="none">
+          <path d="M 200 450 Q 200 320 200 170" />
+          <path d="M 200 450 Q 180 320 145 225" />
+          <path d="M 200 450 Q 220 320 255 225" />
+          <path d="M 200 450 Q 160 360 170 300" />
+          <path d="M 200 450 Q 240 360 230 300" />
+          <path d="M 200 450 Q 130 360 90 270" stroke-width="4"/>
+          <path d="M 200 450 Q 120 380 65 315" stroke-width="4"/>
+          <path d="M 200 450 Q 140 390 115 340" stroke-width="4"/>
+          <path d="M 200 450 Q 270 360 310 270" stroke-width="4"/>
+          <path d="M 200 450 Q 280 380 335 315" stroke-width="4"/>
+          <path d="M 200 450 Q 260 390 285 340" stroke-width="4"/>
+        </g>
+
+        <g class="leaf delay-2" fill="#2e7d32" opacity="0.85">
+          <path d="M 175 350 C 130 330 110 370 160 385 Z" />
+          <path d="M 225 350 C 270 330 290 370 240 385 Z" />
+          <path d="M 185 410 C 140 410 130 440 180 435 Z" />
+          <path d="M 215 410 C 260 410 270 440 220 435 Z" />
+        </g>
+
+        <g class="bloom delay-3">
+          <g transform="translate(310, 270) scale(0.65) rotate(20)">
+            <ellipse cx="0" cy="-25" rx="9" ry="26" fill="url(#lilyGrad)" />
+            <ellipse cx="0" cy="25" rx="9" ry="26" fill="url(#lilyGrad)" />
+            <ellipse cx="-25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
+            <ellipse cx="25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
+            <ellipse cx="-18" cy="-18" rx="22" ry="8" fill="url(#lilyGrad)" transform="rotate(45)" />
+            <ellipse cx="18" cy="-18" rx="22" ry="8" fill="url(#lilyGrad)" transform="rotate(-45)" />
+            <circle cx="0" cy="0" r="4" fill="#ffd54f" />
+          </g>
+          <g transform="translate(335, 315) scale(0.55) rotate(35)">
+            <ellipse cx="0" cy="-25" rx="9" ry="26" fill="url(#lilyGrad)" />
+            <ellipse cx="0" cy="25" rx="9" ry="26" fill="url(#lilyGrad)" />
+            <ellipse cx="-25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
+            <ellipse cx="25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
+            <circle cx="0" cy="0" r="4" fill="#ffd54f" />
+          </g>
+          <g transform="translate(285, 340) scale(0.5) rotate(15)">
+            <ellipse cx="0" cy="-25" rx="9" ry="26" fill="url(#lilyGrad)" />
+            <ellipse cx="0" cy="25" rx="9" ry="26" fill="url(#lilyGrad)" />
+            <ellipse cx="-25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
+            <ellipse cx="25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
+            <circle cx="0" cy="0" r="4" fill="#ffd54f" />
+          </g>
+        </g>
+
+        <g class="bloom delay-3">
+          <g transform="translate(90, 270) scale(0.7) rotate(-20)">
+            <path d="M -18 10 C -25 -25, 0 -35, 0 -35 C 0 -35, 25 -25, 18 10 C 12 25, -12 25, -18 10 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -32 C -10 -15, -10 12, 0 18 C 10 12, 10 -15, 0 -32 Z" fill="#f48fb1"/>
+          </g>
+          <g transform="translate(65, 315) scale(0.6) rotate(-35)">
+            <path d="M -18 10 C -25 -25, 0 -35, 0 -35 C 0 -35, 25 -25, 18 10 C 12 25, -12 25, -18 10 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -32 C -10 -15, -10 12, 0 18 C 10 12, 10 -15, 0 -32 Z" fill="#f48fb1"/>
+          </g>
+          <g transform="translate(115, 340) scale(0.55) rotate(-15)">
+            <path d="M -18 10 C -25 -25, 0 -35, 0 -35 C 0 -35, 25 -25, 18 10 C 12 25, -12 25, -18 10 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -32 C -10 -15, -10 12, 0 18 C 10 12, 10 -15, 0 -32 Z" fill="#f48fb1"/>
+          </g>
+        </g>
+
+        <g class="bloom delay-4" transform="translate(200, 170)">
+          <g fill="url(#sunPetal)">
+            <ellipse cx="0" cy="-44" rx="9" ry="24"/>
+            <ellipse cx="0" cy="44" rx="9" ry="24"/>
+            <ellipse cx="-44" cy="0" rx="24" ry="9"/>
+            <ellipse cx="44" cy="0" rx="24" ry="9"/>
+            <ellipse cx="-31" cy="-31" rx="24" ry="9" transform="rotate(45)"/>
+            <ellipse cx="31" cy="-31" rx="24" ry="9" transform="rotate(-45)"/>
+            <ellipse cx="-31" cy="31" rx="24" ry="9" transform="rotate(-45)"/>
+            <ellipse cx="31" cy="31" rx="24" ry="9" transform="rotate(45)"/>
+            <ellipse cx="-18" cy="-40" rx="22" ry="8" transform="rotate(67)"/>
+            <ellipse cx="18" cy="-40" rx="22" ry="8" transform="rotate(-67)"/>
+            <ellipse cx="-40" cy="-18" rx="8" ry="22" transform="rotate(67)"/>
+            <ellipse cx="40" cy="-18" rx="8" ry="22" transform="rotate(-67)"/>
+          </g>
+          <circle cx="0" cy="0" r="23" fill="url(#sunCenter)" stroke="#d7ccc8" stroke-width="1.5"/>
+        </g>
+
+        <g class="bloom delay-4" transform="translate(145, 225) scale(0.85)">
+          <g fill="url(#sunPetal)">
+            <ellipse cx="0" cy="-40" rx="9" ry="22"/>
+            <ellipse cx="0" cy="40" rx="9" ry="22"/>
+            <ellipse cx="-40" cy="0" rx="22" ry="9"/>
+            <ellipse cx="40" cy="0" rx="22" ry="9"/>
+            <ellipse cx="-28" cy="-28" rx="22" ry="9" transform="rotate(45)"/>
+            <ellipse cx="28" cy="-28" rx="22" ry="9" transform="rotate(-45)"/>
+            <ellipse cx="-28" cy="28" rx="22" ry="9" transform="rotate(-45)"/>
+            <ellipse cx="28" cy="28" rx="22" ry="9" transform="rotate(45)"/>
+          </g>
+          <circle cx="0" cy="0" r="21" fill="url(#sunCenter)"/>
+        </g>
+
+        <g class="bloom delay-4" transform="translate(255, 225) scale(0.85)">
+          <g fill="url(#sunPetal)">
+            <ellipse cx="0" cy="-40" rx="9" ry="22"/>
+            <ellipse cx="0" cy="40" rx="9" ry="22"/>
+            <ellipse cx="-40" cy="0" rx="22" ry="9"/>
+            <ellipse cx="40" cy="0" rx="22" ry="9"/>
+            <ellipse cx="-28" cy="-28" rx="22" ry="9" transform="rotate(45)"/>
+            <ellipse cx="28" cy="-28" rx="22" ry="9" transform="rotate(-45)"/>
+            <ellipse cx="-28" cy="28" rx="22" ry="9" transform="rotate(-45)"/>
+            <ellipse cx="28" cy="28" rx="22" ry="9" transform="rotate(45)"/>
+          </g>
+          <circle cx="0" cy="0" r="21" fill="url(#sunCenter)"/>
+        </g>
+
+        <g class="bloom delay-5" transform="translate(170, 300) scale(0.78)">
+          <g fill="url(#sunPetal)">
+            <ellipse cx="0" cy="-38" rx="8" ry="20"/>
+            <ellipse cx="0" cy="38" rx="8" ry="20"/>
+            <ellipse cx="-38" cy="0" rx="20" ry="8"/>
+            <ellipse cx="38" cy="0" rx="20" ry="8"/>
+            <ellipse cx="-26" cy="-26" rx="20" ry="8" transform="rotate(45)"/>
+            <ellipse cx="26" cy="-26" rx="20" ry="8" transform="rotate(-45)"/>
+            <ellipse cx="-26" cy="26" rx="20" ry="8" transform="rotate(-45)"/>
+            <ellipse cx="26" cy="26" rx="20" ry="8" transform="rotate(45)"/>
+          </g>
+          <circle cx="0" cy="0" r="19" fill="url(#sunCenter)"/>
+        </g>
+
+        <g class="bloom delay-5" transform="translate(230, 300) scale(0.78)">
+          <g fill="url(#sunPetal)">
+            <ellipse cx="0" cy="-38" rx="8" ry="20"/>
+            <ellipse cx="0" cy="38" rx="8" ry="20"/>
+            <ellipse cx="-38" cy="0" rx="20" ry="8"/>
+            <ellipse cx="38" cy="0" rx="20" ry="8"/>
+            <ellipse cx="-26" cy="-26" rx="20" ry="8" transform="rotate(45)"/>
+            <ellipse cx="26" cy="-26" rx="20" ry="8" transform="rotate(-45)"/>
+            <ellipse cx="-26" cy="26" rx="20" ry="8" transform="rotate(-45)"/>
+            <ellipse cx="26" cy="26" rx="20" ry="8" transform="rotate(45)"/>
+          </g>
+          <circle cx="0" cy="0" r="19" fill="url(#sunCenter)"/>
+        </g>
+
+        <g class="bow delay-2" transform="translate(200, 440)">
+          <ellipse cx="-15" cy="-8" rx="14" ry="7" fill="url(#ribbonGrad)" transform="rotate(-20)"/>
+          <ellipse cx="15" cy="-8" rx="14" ry="7" fill="url(#ribbonGrad)" transform="rotate(20)"/>
+          <path d="M -8 0 Q -15 22 -20 28" stroke="url(#ribbonGrad)" stroke-width="4" fill="none"/>
+          <path d="M 8 0 Q 15 22 20 28" stroke="url(#ribbonGrad)" stroke-width="4" fill="none"/>
+          <circle cx="0" cy="-6" r="5" fill="#f06292"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="letter-card">
+      <div class="title">Feliz Cumpleaños, Sophia ✨</div>
+      <div class="letter-text">
+        <p>Quería tener este pequeño detalle contigo. Mal ahí que no pueda entregarte nada físicamente, pero no quería solo dejar unas cuantas palabras y listo, espero de verdad que esto te guste.</p>
+        
+        <p>Sé que estás lejos dándolo todo en la chamba y buscando un futuro mejor para ti y tu familia. Siempre admiré eso de ti, eres una mujer muy fuerte e increíble. Espero de verdad que en este día disfrutes mucho junto a la doctora, Ellen y a los amigos que seguro has hecho por allá.</p>
+        
+        <p>Ah, y sé que ya pasaron como 2 días de lo de las flores amarillas, pero quise entregártelas igual a mi manera y me pareció que quedaban perfectas para tu cumpleaños al estar tan cerca.</p>
+        
+        <p>Gracias por todos los buenos recuerdos, que sigas teniendo un bonito año y el próximo seguro será mucho mejor.</p>
+        
+        <p class="farewell">Un abrazo hasta España, se te quiere Sophia.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const musicBtn = document.getElementById('music-btn');
+    const musicState = document.getElementById('music-state');
+    const envelopeScreen = document.getElementById('envelope-screen');
+    const mainContent = document.getElementById('main-content');
+    const flap = document.getElementById('flap');
+    let isPlaying = false;
+
+    function startExperience() {
+      flap.style.transform = 'rotateX(180deg)';
+      
+      audio.volume = 0;
+      audio.play().then(() => {
+        isPlaying = true;
+        musicBtn.classList.add('visible', 'playing');
+        fadeInAudio();
+      }).catch(err => {
+        console.log("Autoplay bloqueado:", err);
+      });
+
+      setTimeout(() => {
+        envelopeScreen.style.opacity = '0';
+        setTimeout(() => {
+          envelopeScreen.style.display = 'none';
+          mainContent.style.visibility = 'visible';
+          mainContent.style.opacity = '1';
+          document.body.classList.add('loaded');
+        }, 800);
+      }, 500);
+    }
+
+    function fadeInAudio() {
+      let vol = 0;
+      const interval = setInterval(() => {
+        if (vol < 0.85) {
+          vol += 0.05;
+          audio.volume = Math.min(vol, 1);
+        } else {
+          clearInterval(interval);
+        }
+      }, 150);
+    }
+
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        musicState.textContent = 'Reanudar';
+        isPlaying = false;
+      } else {
+        audio.play();
+        musicBtn.classList.add('playing');
+        musicState.textContent = 'Pausar';
+        isPlaying = true;
+      }
+    }
+  </script>
+</body>
+</html>
