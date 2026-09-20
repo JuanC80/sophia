@@ -3,25 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Para Sophia </title>
+  <title>Para Sophia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       min-height: 100dvh;
       background: radial-gradient(circle at center, #241133 0%, #12071a 60%, #08030c 100%);
       font-family: 'Montserrat', sans-serif;
       color: #fcebf2;
       overflow-x: hidden;
-      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -30,239 +23,121 @@
 
     .ambient-glow {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(235, 185, 110, 0.18) 0%, rgba(199, 125, 255, 0.12) 50%, transparent 75%);
-      filter: blur(50px);
-      pointer-events: none;
-      z-index: 1;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(235, 185, 110, 0.15) 0%, rgba(199, 125, 255, 0.1) 50%, transparent 75%);
+      filter: blur(60px); pointer-events: none; z-index: 1;
     }
 
     #envelope-screen {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 50;
       background: radial-gradient(circle at center, #241133 0%, #12071a 70%, #08030c 100%);
-      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+      transition: opacity 1.2s ease, visibility 1.2s;
     }
-
     .envelope-box {
-      width: 170px;
-      height: 120px;
+      width: 170px; height: 120px;
       background: linear-gradient(145deg, #fdfbf7, #e2d9cc);
-      border-radius: 8px;
-      position: relative;
-      cursor: pointer;
+      border-radius: 8px; position: relative; cursor: pointer;
       box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 25px rgba(235, 185, 110, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .envelope-box:active {
-      transform: scale(0.96);
-    }
-
     .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 85px solid transparent;
-      border-right: 85px solid transparent;
-      border-top: 65px solid #d8cbba;
-      transform-origin: top;
-      transition: transform 0.6s ease;
+      position: absolute; top: 0; left: 0;
+      border-left: 85px solid transparent; border-right: 85px solid transparent; border-top: 65px solid #d8cbba;
+      transform-origin: top; transition: transform 0.6s ease;
     }
-
     .wax-seal {
-      position: absolute;
-      width: 38px;
-      height: 38px;
+      position: absolute; width: 38px; height: 38px;
       background: radial-gradient(circle, #7a2b4a, #4a152d);
-      border-radius: 50%;
-      border: 1px solid rgba(255, 215, 0, 0.5);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffd7a8;
-      font-size: 16px;
-      z-index: 2;
+      border-radius: 50%; border: 1px solid rgba(255, 215, 0, 0.5);
+      display: flex; align-items: center; justify-content: center;
+      color: #ffd7a8; font-size: 16px; z-index: 2;
     }
-
     .open-hint {
-      margin-top: 25px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      color: #f3d299;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      margin-top: 25px; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; letter-spacing: 2px; color: #f3d299;
       animation: pulse 2s infinite ease-in-out;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.65; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.03); }
-    }
+    @keyframes pulse { 0%, 100% { opacity: 0.65; transform: scale(1); } 50% { opacity: 1; transform: scale(1.03); } }
 
     #main-content {
-      width: 100%;
-      max-width: 580px;
-      padding: 24px 18px 60px;
-      opacity: 0;
-      visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-      transition: opacity 1.5s ease 0.4s, visibility 1.5s ease 0.4s;
+      width: 100%; max-width: 600px;
+      padding: 20px 15px 60px;
+      opacity: 0; visibility: hidden;
+      display: flex; flex-direction: column; align-items: center;
+      z-index: 10; transition: opacity 1.5s ease 0.4s;
     }
 
     .bouquet-wrapper {
-      width: 100%;
-      max-width: 380px;
-      height: 440px;
-      position: relative;
-      margin-bottom: 25px;
+      width: 100%; max-width: 500px;
+      height: 550px; position: relative; margin-bottom: 20px;
       filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
     }
+    svg { width: 100%; height: 100%; overflow: visible; }
 
-    svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
+    /* Animaciones limpias */
+    .stem-group path {
+      stroke-dasharray: 600; stroke-dashoffset: 600;
+      transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    .stem, .leaf, .bow {
-      opacity: 0;
-      transform-origin: 200px 420px;
-      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: scaleY(0.1);
-    }
+    .loaded .stem-group path { stroke-dashoffset: 0; }
 
     .bloom {
-      opacity: 0;
-      transform-origin: center;
-      transform: scale(0);
-      transition: opacity 1.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: scale(0); transform-origin: center;
+      transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    .loaded .bloom { transform: scale(1); }
 
-    .loaded .stem, .loaded .leaf, .loaded .bow {
-      opacity: 1;
-      transform: scaleY(1);
+    .delay-leaf { opacity: 0; transition: opacity 1.5s ease 1s; }
+    .loaded .delay-leaf { opacity: 1; }
+    .delay-1 .bloom { transition-delay: 0.8s; }
+    .delay-2 .bloom { transition-delay: 1.2s; }
+    .delay-3 .bloom { transition-delay: 1.6s; }
+    .delay-bow { 
+      opacity: 0; transform: translateY(20px); 
+      transition: opacity 1s ease 2s, transform 1s ease 2s; 
     }
+    .loaded .delay-bow { opacity: 1; transform: translateY(0); }
 
-    .loaded .bloom {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .delay-1 { transition-delay: 0.4s; }
-    .delay-2 { transition-delay: 0.9s; }
-    .delay-3 { transition-delay: 1.3s; }
-    .delay-4 { transition-delay: 1.7s; }
-    .delay-5 { transition-delay: 2.1s; }
-
+    /* Tarjeta limpia, sin neones */
     .letter-card {
-      width: 100%;
-      background: rgba(25, 12, 35, 0.55);
+      width: 100%; background: rgba(25, 12, 35, 0.55);
       border: 1px solid rgba(235, 185, 110, 0.25);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 18px;
-      padding: 30px 24px;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px; padding: 35px 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      transform: translateY(25px);
-      transition: opacity 1.5s ease 2.6s, transform 1.5s ease 2.6s;
+      opacity: 0; transform: translateY(25px);
+      transition: opacity 1.5s ease 2.8s, transform 1.5s ease 2.8s;
     }
-
-    .loaded .letter-card {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .loaded .letter-card { opacity: 1; transform: translateY(0); }
 
     .title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem;
-      color: #ffd782;
-      text-align: center;
-      margin-bottom: 22px;
-      letter-spacing: 1px;
+      font-family: 'Cormorant Garamond', serif; font-size: 2.1rem;
+      color: #ffd782; text-align: center; margin-bottom: 24px;
+      font-weight: 500; letter-spacing: 0.5px;
     }
-
     .letter-text {
-      font-size: 0.92rem;
-      line-height: 1.8;
-      color: #edd9e5;
-      font-weight: 300;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      text-align: left;
+      font-size: 0.95rem; line-height: 1.8; color: #edd9e5;
+      font-weight: 300; display: flex; flex-direction: column; gap: 16px; text-align: left;
     }
-
-    .letter-text p {
-      margin: 0;
-    }
-
-    .farewell {
-      font-weight: 500;
-      color: #ffd782;
-      margin-top: 10px;
-    }
+    .farewell { font-weight: 500; color: #ffd782; margin-top: 12px; }
 
     .music-pill {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      background: rgba(30, 15, 42, 0.7);
-      border: 1px solid rgba(235, 185, 110, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      color: #ffd782;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      z-index: 100;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease;
+      position: fixed; top: 16px; right: 16px;
+      background: rgba(30, 15, 42, 0.7); border: 1px solid rgba(235, 185, 110, 0.3);
+      backdrop-filter: blur(10px); padding: 8px 14px; border-radius: 20px;
+      font-size: 0.78rem; color: #ffd782; display: flex; align-items: center; gap: 8px;
+      cursor: pointer; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 0.5s ease;
     }
-
-    .music-pill.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .music-pill.playing .icon-spin {
-      animation: spin 4s linear infinite;
-    }
-
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
+    .music-pill.visible { opacity: 1; visibility: visible; }
+    .music-pill.playing .icon-spin { animation: spin 4s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-
   <div class="ambient-glow"></div>
-
   <audio id="bg-audio" src="musica.mp3" loop preload="auto"></audio>
 
   <div id="music-btn" class="music-pill" onclick="toggleAudio()">
@@ -275,208 +150,197 @@
       <div class="envelope-flap" id="flap"></div>
       <div class="wax-seal">✦</div>
     </div>
-    <div class="open-hint">
-      <span>Abrir</span> ✉️
-    </div>
+    <div class="open-hint">Abrir ✉️</div>
   </div>
 
   <div id="main-content">
-    
     <div class="bouquet-wrapper">
-      <svg viewBox="0 0 400 480">
+      <svg viewBox="0 0 500 600">
         <defs>
-          <linearGradient id="sunPetal" x1="0%" y1="0%" x2="100%" y2="100%">
+          <!-- Degradados -->
+          <linearGradient id="sunPetal" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#fff176"/>
             <stop offset="50%" stop-color="#fbc02d"/>
             <stop offset="100%" stop-color="#e65100"/>
           </linearGradient>
           <radialGradient id="sunCenter" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color="#4e342e"/>
-            <stop offset="60%" stop-color="#3e2723"/>
+            <stop offset="70%" stop-color="#3e2723"/>
             <stop offset="100%" stop-color="#1b0000"/>
           </radialGradient>
           <linearGradient id="tulipGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#ffb7b2"/>
-            <stop offset="70%" stop-color="#f06292"/>
+            <stop offset="0%" stop-color="#f8bbd0"/>
+            <stop offset="50%" stop-color="#f06292"/>
             <stop offset="100%" stop-color="#ad1457"/>
           </linearGradient>
           <linearGradient id="lilyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="60%" stop-color="#e1bee7"/>
-            <stop offset="100%" stop-color="#ab47bc"/>
+            <stop offset="50%" stop-color="#e1bee7"/>
+            <stop offset="100%" stop-color="#8e24aa"/>
           </linearGradient>
           <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#2e7d32"/>
+            <stop offset="0%" stop-color="#4caf50"/>
             <stop offset="100%" stop-color="#1b5e20"/>
           </linearGradient>
-          <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f8bbd0"/>
-            <stop offset="50%" stop-color="#ec407a"/>
-            <stop offset="100%" stop-color="#ad1457"/>
-          </linearGradient>
+
+          <!-- Vectores Maestros Reutilizables (Optimización) -->
+          <path id="sun-petal-shape" d="M 0 0 C -12 -15 -10 -35 0 -45 C 10 -35 12 -15 0 0" fill="url(#sunPetal)"/>
+          <path id="lily-petal-shape" d="M 0 0 C -20 -20 -15 -45 0 -55 C 15 -45 20 -20 0 0" fill="url(#lilyGrad)"/>
+          <path id="leaf-shape" d="M 0 0 C -20 -15 -20 -40 0 -55 C 20 -40 20 -15 0 0" fill="#2e7d32"/>
         </defs>
 
-        <g class="stem delay-1" stroke="url(#stemGrad)" stroke-width="5" stroke-linecap="round" fill="none">
-          <path d="M 200 450 Q 200 320 200 170" />
-          <path d="M 200 450 Q 180 320 145 225" />
-          <path d="M 200 450 Q 220 320 255 225" />
-          <path d="M 200 450 Q 160 360 170 300" />
-          <path d="M 200 450 Q 240 360 230 300" />
-          <path d="M 200 450 Q 130 360 90 270" stroke-width="4"/>
-          <path d="M 200 450 Q 120 380 65 315" stroke-width="4"/>
-          <path d="M 200 450 Q 140 390 115 340" stroke-width="4"/>
-          <path d="M 200 450 Q 270 360 310 270" stroke-width="4"/>
-          <path d="M 200 450 Q 280 380 335 315" stroke-width="4"/>
-          <path d="M 200 450 Q 260 390 285 340" stroke-width="4"/>
+        <!-- TALLOS -->
+        <g class="stem-group" stroke="url(#stemGrad)" stroke-width="6" stroke-linecap="round" fill="none">
+          <!-- Tallos Girasoles -->
+          <path d="M 250 540 Q 250 400 250 180" />
+          <path d="M 250 540 Q 200 400 150 260" />
+          <path d="M 250 540 Q 300 400 350 260" />
+          <path d="M 250 540 Q 220 450 200 360" />
+          <path d="M 250 540 Q 280 450 300 360" />
+          <!-- Tallos Tulipanes -->
+          <path d="M 250 540 Q 150 450 80 240" stroke-width="4"/>
+          <path d="M 250 540 Q 120 450 50 320" stroke-width="4"/>
+          <path d="M 250 540 Q 180 470 110 400" stroke-width="4"/>
+          <path d="M 250 540 Q 190 440 140 330" stroke-width="4"/>
+          <!-- Tallos Lirios -->
+          <path d="M 250 540 Q 350 450 420 240" stroke-width="4"/>
+          <path d="M 250 540 Q 380 450 450 320" stroke-width="4"/>
+          <path d="M 250 540 Q 320 470 390 400" stroke-width="4"/>
+          <path d="M 250 540 Q 310 440 360 330" stroke-width="4"/>
         </g>
 
-        <g class="leaf delay-2" fill="#2e7d32" opacity="0.85">
-          <path d="M 175 350 C 130 330 110 370 160 385 Z" />
-          <path d="M 225 350 C 270 330 290 370 240 385 Z" />
-          <path d="M 185 410 C 140 410 130 440 180 435 Z" />
-          <path d="M 215 410 C 260 410 270 440 220 435 Z" />
+        <!-- HOJAS VERDES (Agregadas para realismo) -->
+        <g class="delay-leaf">
+          <use href="#leaf-shape" transform="translate(250, 350) rotate(45) scale(0.8)"/>
+          <use href="#leaf-shape" transform="translate(250, 380) rotate(-45) scale(0.8)"/>
+          <use href="#leaf-shape" transform="translate(200, 420) rotate(-60) scale(0.7)"/>
+          <use href="#leaf-shape" transform="translate(300, 420) rotate(60) scale(0.7)"/>
+          <use href="#leaf-shape" transform="translate(160, 380) rotate(-70) scale(0.6)"/>
+          <use href="#leaf-shape" transform="translate(340, 380) rotate(70) scale(0.6)"/>
         </g>
 
-        <g class="bloom delay-3">
-          <g transform="translate(310, 270) scale(0.65) rotate(20)">
-            <ellipse cx="0" cy="-25" rx="9" ry="26" fill="url(#lilyGrad)" />
-            <ellipse cx="0" cy="25" rx="9" ry="26" fill="url(#lilyGrad)" />
-            <ellipse cx="-25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
-            <ellipse cx="25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
-            <ellipse cx="-18" cy="-18" rx="22" ry="8" fill="url(#lilyGrad)" transform="rotate(45)" />
-            <ellipse cx="18" cy="-18" rx="22" ry="8" fill="url(#lilyGrad)" transform="rotate(-45)" />
-            <circle cx="0" cy="0" r="4" fill="#ffd54f" />
-          </g>
-          <g transform="translate(335, 315) scale(0.55) rotate(35)">
-            <ellipse cx="0" cy="-25" rx="9" ry="26" fill="url(#lilyGrad)" />
-            <ellipse cx="0" cy="25" rx="9" ry="26" fill="url(#lilyGrad)" />
-            <ellipse cx="-25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
-            <ellipse cx="25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
-            <circle cx="0" cy="0" r="4" fill="#ffd54f" />
-          </g>
-          <g transform="translate(285, 340) scale(0.5) rotate(15)">
-            <ellipse cx="0" cy="-25" rx="9" ry="26" fill="url(#lilyGrad)" />
-            <ellipse cx="0" cy="25" rx="9" ry="26" fill="url(#lilyGrad)" />
-            <ellipse cx="-25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
-            <ellipse cx="25" cy="0" rx="26" ry="9" fill="url(#lilyGrad)" />
-            <circle cx="0" cy="0" r="4" fill="#ffd54f" />
-          </g>
+        <!-- TULIPANES (Izquierda) -->
+        <g class="delay-1">
+          <g transform="translate(80, 240) rotate(-25)"><g class="bloom">
+            <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
+          </g></g>
+          <g transform="translate(50, 320) rotate(-40)"><g class="bloom">
+            <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
+          </g></g>
+          <g transform="translate(110, 400) rotate(-15) scale(0.9)"><g class="bloom">
+            <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
+          </g></g>
+          <g transform="translate(140, 330) rotate(-20) scale(0.85)"><g class="bloom">
+            <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
+            <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
+          </g></g>
         </g>
 
-        <g class="bloom delay-3">
-          <g transform="translate(90, 270) scale(0.7) rotate(-20)">
-            <path d="M -18 10 C -25 -25, 0 -35, 0 -35 C 0 -35, 25 -25, 18 10 C 12 25, -12 25, -18 10 Z" fill="url(#tulipGrad)"/>
-            <path d="M 0 -32 C -10 -15, -10 12, 0 18 C 10 12, 10 -15, 0 -32 Z" fill="#f48fb1"/>
-          </g>
-          <g transform="translate(65, 315) scale(0.6) rotate(-35)">
-            <path d="M -18 10 C -25 -25, 0 -35, 0 -35 C 0 -35, 25 -25, 18 10 C 12 25, -12 25, -18 10 Z" fill="url(#tulipGrad)"/>
-            <path d="M 0 -32 C -10 -15, -10 12, 0 18 C 10 12, 10 -15, 0 -32 Z" fill="#f48fb1"/>
-          </g>
-          <g transform="translate(115, 340) scale(0.55) rotate(-15)">
-            <path d="M -18 10 C -25 -25, 0 -35, 0 -35 C 0 -35, 25 -25, 18 10 C 12 25, -12 25, -18 10 Z" fill="url(#tulipGrad)"/>
-            <path d="M 0 -32 C -10 -15, -10 12, 0 18 C 10 12, 10 -15, 0 -32 Z" fill="#f48fb1"/>
-          </g>
+        <!-- LIRIOS (Derecha) -->
+        <g class="delay-2">
+          <g transform="translate(420, 240) rotate(25)"><g class="bloom">
+            <use href="#lily-petal-shape" transform="rotate(0)"/> <use href="#lily-petal-shape" transform="rotate(60)"/>
+            <use href="#lily-petal-shape" transform="rotate(120)"/> <use href="#lily-petal-shape" transform="rotate(180)"/>
+            <use href="#lily-petal-shape" transform="rotate(240)"/> <use href="#lily-petal-shape" transform="rotate(300)"/>
+            <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
+            <circle cx="-5" cy="-25" r="3" fill="#e65100"/> <circle cx="5" cy="-25" r="3" fill="#e65100"/> <circle cx="0" cy="-28" r="3" fill="#e65100"/>
+          </g></g>
+          <g transform="translate(450, 320) rotate(40)"><g class="bloom">
+            <use href="#lily-petal-shape" transform="rotate(0)"/> <use href="#lily-petal-shape" transform="rotate(60)"/>
+            <use href="#lily-petal-shape" transform="rotate(120)"/> <use href="#lily-petal-shape" transform="rotate(180)"/>
+            <use href="#lily-petal-shape" transform="rotate(240)"/> <use href="#lily-petal-shape" transform="rotate(300)"/>
+            <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
+            <circle cx="-5" cy="-25" r="3" fill="#e65100"/> <circle cx="5" cy="-25" r="3" fill="#e65100"/> <circle cx="0" cy="-28" r="3" fill="#e65100"/>
+          </g></g>
+          <g transform="translate(390, 400) rotate(15) scale(0.9)"><g class="bloom">
+            <use href="#lily-petal-shape" transform="rotate(0)"/> <use href="#lily-petal-shape" transform="rotate(60)"/>
+            <use href="#lily-petal-shape" transform="rotate(120)"/> <use href="#lily-petal-shape" transform="rotate(180)"/>
+            <use href="#lily-petal-shape" transform="rotate(240)"/> <use href="#lily-petal-shape" transform="rotate(300)"/>
+            <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
+          </g></g>
+          <g transform="translate(360, 330) rotate(20) scale(0.85)"><g class="bloom">
+            <use href="#lily-petal-shape" transform="rotate(0)"/> <use href="#lily-petal-shape" transform="rotate(60)"/>
+            <use href="#lily-petal-shape" transform="rotate(120)"/> <use href="#lily-petal-shape" transform="rotate(180)"/>
+            <use href="#lily-petal-shape" transform="rotate(240)"/> <use href="#lily-petal-shape" transform="rotate(300)"/>
+            <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
+          </g></g>
         </g>
 
-        <g class="bloom delay-4" transform="translate(200, 170)">
-          <g fill="url(#sunPetal)">
-            <ellipse cx="0" cy="-44" rx="9" ry="24"/>
-            <ellipse cx="0" cy="44" rx="9" ry="24"/>
-            <ellipse cx="-44" cy="0" rx="24" ry="9"/>
-            <ellipse cx="44" cy="0" rx="24" ry="9"/>
-            <ellipse cx="-31" cy="-31" rx="24" ry="9" transform="rotate(45)"/>
-            <ellipse cx="31" cy="-31" rx="24" ry="9" transform="rotate(-45)"/>
-            <ellipse cx="-31" cy="31" rx="24" ry="9" transform="rotate(-45)"/>
-            <ellipse cx="31" cy="31" rx="24" ry="9" transform="rotate(45)"/>
-            <ellipse cx="-18" cy="-40" rx="22" ry="8" transform="rotate(67)"/>
-            <ellipse cx="18" cy="-40" rx="22" ry="8" transform="rotate(-67)"/>
-            <ellipse cx="-40" cy="-18" rx="8" ry="22" transform="rotate(67)"/>
-            <ellipse cx="40" cy="-18" rx="8" ry="22" transform="rotate(-67)"/>
-          </g>
-          <circle cx="0" cy="0" r="23" fill="url(#sunCenter)" stroke="#d7ccc8" stroke-width="1.5"/>
+        <!-- 5 GIRASOLES MASIVOS (Capa doble de pétalos) -->
+        <g class="delay-3">
+          <!-- Centro Superior -->
+          <g transform="translate(250, 180) scale(1.4)"><g class="bloom">
+            <!-- Capa Base -->
+            <use href="#sun-petal-shape" transform="rotate(0)"/><use href="#sun-petal-shape" transform="rotate(20)"/><use href="#sun-petal-shape" transform="rotate(40)"/><use href="#sun-petal-shape" transform="rotate(60)"/><use href="#sun-petal-shape" transform="rotate(80)"/><use href="#sun-petal-shape" transform="rotate(100)"/><use href="#sun-petal-shape" transform="rotate(120)"/><use href="#sun-petal-shape" transform="rotate(140)"/><use href="#sun-petal-shape" transform="rotate(160)"/><use href="#sun-petal-shape" transform="rotate(180)"/><use href="#sun-petal-shape" transform="rotate(200)"/><use href="#sun-petal-shape" transform="rotate(220)"/><use href="#sun-petal-shape" transform="rotate(240)"/><use href="#sun-petal-shape" transform="rotate(260)"/><use href="#sun-petal-shape" transform="rotate(280)"/><use href="#sun-petal-shape" transform="rotate(300)"/><use href="#sun-petal-shape" transform="rotate(320)"/><use href="#sun-petal-shape" transform="rotate(340)"/>
+            <!-- Capa Superior -->
+            <g transform="scale(0.85) rotate(10)">
+              <use href="#sun-petal-shape" transform="rotate(0)"/><use href="#sun-petal-shape" transform="rotate(20)"/><use href="#sun-petal-shape" transform="rotate(40)"/><use href="#sun-petal-shape" transform="rotate(60)"/><use href="#sun-petal-shape" transform="rotate(80)"/><use href="#sun-petal-shape" transform="rotate(100)"/><use href="#sun-petal-shape" transform="rotate(120)"/><use href="#sun-petal-shape" transform="rotate(140)"/><use href="#sun-petal-shape" transform="rotate(160)"/><use href="#sun-petal-shape" transform="rotate(180)"/><use href="#sun-petal-shape" transform="rotate(200)"/><use href="#sun-petal-shape" transform="rotate(220)"/><use href="#sun-petal-shape" transform="rotate(240)"/><use href="#sun-petal-shape" transform="rotate(260)"/><use href="#sun-petal-shape" transform="rotate(280)"/><use href="#sun-petal-shape" transform="rotate(300)"/><use href="#sun-petal-shape" transform="rotate(320)"/><use href="#sun-petal-shape" transform="rotate(340)"/>
+            </g>
+            <circle cx="0" cy="0" r="16" fill="url(#sunCenter)"/>
+          </g></g>
+          
+          <!-- Medio Izquierdo -->
+          <g transform="translate(150, 260) scale(1.2)"><g class="bloom">
+            <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
+            <g transform="scale(0.85) rotate(20)">
+              <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
+            </g>
+            <circle cx="0" cy="0" r="14" fill="url(#sunCenter)"/>
+          </g></g>
+          
+          <!-- Medio Derecho -->
+          <g transform="translate(350, 260) scale(1.2)"><g class="bloom">
+            <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
+            <g transform="scale(0.85) rotate(20)">
+              <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
+            </g>
+            <circle cx="0" cy="0" r="14" fill="url(#sunCenter)"/>
+          </g></g>
+          
+          <!-- Base Izquierda -->
+          <g transform="translate(200, 360) scale(1.1)"><g class="bloom">
+            <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
+            <g transform="scale(0.85) rotate(15)">
+              <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
+            </g>
+            <circle cx="0" cy="0" r="14" fill="url(#sunCenter)"/>
+          </g></g>
+          
+          <!-- Base Derecha -->
+          <g transform="translate(300, 360) scale(1.1)"><g class="bloom">
+            <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
+            <g transform="scale(0.85) rotate(15)">
+              <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
+            </g>
+            <circle cx="0" cy="0" r="14" fill="url(#sunCenter)"/>
+          </g></g>
         </g>
 
-        <g class="bloom delay-4" transform="translate(145, 225) scale(0.85)">
-          <g fill="url(#sunPetal)">
-            <ellipse cx="0" cy="-40" rx="9" ry="22"/>
-            <ellipse cx="0" cy="40" rx="9" ry="22"/>
-            <ellipse cx="-40" cy="0" rx="22" ry="9"/>
-            <ellipse cx="40" cy="0" rx="22" ry="9"/>
-            <ellipse cx="-28" cy="-28" rx="22" ry="9" transform="rotate(45)"/>
-            <ellipse cx="28" cy="-28" rx="22" ry="9" transform="rotate(-45)"/>
-            <ellipse cx="-28" cy="28" rx="22" ry="9" transform="rotate(-45)"/>
-            <ellipse cx="28" cy="28" rx="22" ry="9" transform="rotate(45)"/>
-          </g>
-          <circle cx="0" cy="0" r="21" fill="url(#sunCenter)"/>
-        </g>
-
-        <g class="bloom delay-4" transform="translate(255, 225) scale(0.85)">
-          <g fill="url(#sunPetal)">
-            <ellipse cx="0" cy="-40" rx="9" ry="22"/>
-            <ellipse cx="0" cy="40" rx="9" ry="22"/>
-            <ellipse cx="-40" cy="0" rx="22" ry="9"/>
-            <ellipse cx="40" cy="0" rx="22" ry="9"/>
-            <ellipse cx="-28" cy="-28" rx="22" ry="9" transform="rotate(45)"/>
-            <ellipse cx="28" cy="-28" rx="22" ry="9" transform="rotate(-45)"/>
-            <ellipse cx="-28" cy="28" rx="22" ry="9" transform="rotate(-45)"/>
-            <ellipse cx="28" cy="28" rx="22" ry="9" transform="rotate(45)"/>
-          </g>
-          <circle cx="0" cy="0" r="21" fill="url(#sunCenter)"/>
-        </g>
-
-        <g class="bloom delay-5" transform="translate(170, 300) scale(0.78)">
-          <g fill="url(#sunPetal)">
-            <ellipse cx="0" cy="-38" rx="8" ry="20"/>
-            <ellipse cx="0" cy="38" rx="8" ry="20"/>
-            <ellipse cx="-38" cy="0" rx="20" ry="8"/>
-            <ellipse cx="38" cy="0" rx="20" ry="8"/>
-            <ellipse cx="-26" cy="-26" rx="20" ry="8" transform="rotate(45)"/>
-            <ellipse cx="26" cy="-26" rx="20" ry="8" transform="rotate(-45)"/>
-            <ellipse cx="-26" cy="26" rx="20" ry="8" transform="rotate(-45)"/>
-            <ellipse cx="26" cy="26" rx="20" ry="8" transform="rotate(45)"/>
-          </g>
-          <circle cx="0" cy="0" r="19" fill="url(#sunCenter)"/>
-        </g>
-
-        <g class="bloom delay-5" transform="translate(230, 300) scale(0.78)">
-          <g fill="url(#sunPetal)">
-            <ellipse cx="0" cy="-38" rx="8" ry="20"/>
-            <ellipse cx="0" cy="38" rx="8" ry="20"/>
-            <ellipse cx="-38" cy="0" rx="20" ry="8"/>
-            <ellipse cx="38" cy="0" rx="20" ry="8"/>
-            <ellipse cx="-26" cy="-26" rx="20" ry="8" transform="rotate(45)"/>
-            <ellipse cx="26" cy="-26" rx="20" ry="8" transform="rotate(-45)"/>
-            <ellipse cx="-26" cy="26" rx="20" ry="8" transform="rotate(-45)"/>
-            <ellipse cx="26" cy="26" rx="20" ry="8" transform="rotate(45)"/>
-          </g>
-          <circle cx="0" cy="0" r="19" fill="url(#sunCenter)"/>
-        </g>
-
-        <g class="bow delay-2" transform="translate(200, 440)">
-          <ellipse cx="-15" cy="-8" rx="14" ry="7" fill="url(#ribbonGrad)" transform="rotate(-20)"/>
-          <ellipse cx="15" cy="-8" rx="14" ry="7" fill="url(#ribbonGrad)" transform="rotate(20)"/>
-          <path d="M -8 0 Q -15 22 -20 28" stroke="url(#ribbonGrad)" stroke-width="4" fill="none"/>
-          <path d="M 8 0 Q 15 22 20 28" stroke="url(#ribbonGrad)" stroke-width="4" fill="none"/>
-          <circle cx="0" cy="-6" r="5" fill="#f06292"/>
+        <!-- LAZO UNIFICADOR -->
+        <g class="delay-bow" transform="translate(250, 530)">
+          <path d="M 0 0 C -30 -30 -60 10 0 15" fill="#f06292"/>
+          <path d="M 0 0 C 30 -30 60 10 0 15" fill="#f06292"/>
+          <path d="M 0 10 L -25 50 L -10 50 L 5 15 Z" fill="#ad1457"/>
+          <path d="M 0 10 L 25 50 L 10 50 L -5 15 Z" fill="#ad1457"/>
+          <circle cx="0" cy="10" r="8" fill="#ffd54f"/>
         </g>
       </svg>
     </div>
 
+    <!-- CARTA LIMPIA SIN NEONES Y CON EL TEXTO EXACTO -->
     <div class="letter-card">
-      <div class="title">Feliz Cumpleaños, Sophia ✨</div>
+      <div class="title">Feliz Cumpleaños, Sophia</div>
       <div class="letter-text">
         <p>Quería tener este pequeño detalle contigo. Mal ahí que no pueda entregarte nada físicamente, pero no quería solo dejar unas cuantas palabras y listo, espero de verdad que esto te guste.</p>
-        
         <p>Sé que estás lejos dándolo todo en la chamba y buscando un futuro mejor para ti y tu familia. Siempre admiré eso de ti, eres una mujer muy fuerte e increíble. Espero de verdad que en este día disfrutes mucho junto a la doctora, Ellen y a los amigos que seguro has hecho por allá.</p>
-        
         <p>Ah, y sé que ya pasaron como 2 días de lo de las flores amarillas, pero quise entregártelas igual a mi manera y me pareció que quedaban perfectas para tu cumpleaños al estar tan cerca.</p>
-        
         <p>Gracias por todos los buenos recuerdos, que sigas teniendo un bonito año y el próximo seguro será mucho mejor.</p>
-        
         <p class="farewell">Un abrazo hasta España, se te quiere Sophia.</p>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -490,15 +354,12 @@
 
     function startExperience() {
       flap.style.transform = 'rotateX(180deg)';
-      
       audio.volume = 0;
       audio.play().then(() => {
         isPlaying = true;
         musicBtn.classList.add('visible', 'playing');
         fadeInAudio();
-      }).catch(err => {
-        console.log("Autoplay bloqueado:", err);
-      });
+      }).catch(err => console.log("Autoplay bloqueado:", err));
 
       setTimeout(() => {
         envelopeScreen.style.opacity = '0';
@@ -514,27 +375,14 @@
     function fadeInAudio() {
       let vol = 0;
       const interval = setInterval(() => {
-        if (vol < 0.85) {
-          vol += 0.05;
-          audio.volume = Math.min(vol, 1);
-        } else {
-          clearInterval(interval);
-        }
+        if (vol < 0.85) { vol += 0.05; audio.volume = Math.min(vol, 1); } 
+        else { clearInterval(interval); }
       }, 150);
     }
 
     function toggleAudio() {
-      if (isPlaying) {
-        audio.pause();
-        musicBtn.classList.remove('playing');
-        musicState.textContent = 'Reanudar';
-        isPlaying = false;
-      } else {
-        audio.play();
-        musicBtn.classList.add('playing');
-        musicState.textContent = 'Pausar';
-        isPlaying = true;
-      }
+      if (isPlaying) { audio.pause(); musicBtn.classList.remove('playing'); musicState.textContent = 'Reanudar'; isPlaying = false; } 
+      else { audio.play(); musicBtn.classList.add('playing'); musicState.textContent = 'Pausar'; isPlaying = true; }
     }
   </script>
 </body>
