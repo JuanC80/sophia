@@ -70,7 +70,6 @@
       z-index: 10; transition: opacity 1.5s ease 0.4s;
     }
 
-    /* Ramo expandido para que nada se corte */
     .bouquet-wrapper {
       width: 100%; max-width: 600px;
       height: 520px; position: relative; margin-bottom: 30px;
@@ -78,7 +77,6 @@
     }
     svg { width: 100%; height: 100%; overflow: visible; }
 
-    /* Animaciones robustas para Chrome (Dasharray de 2000 para cubrir el largo total) */
     .stem-group path {
       stroke-dasharray: 2000; stroke-dashoffset: 2000;
       transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -157,7 +155,6 @@
 
   <div id="main-content">
     <div class="bouquet-wrapper">
-      <!-- Lienzo de 700x650 para dar oxígeno absoluto. Centro matemático exacto en 350. -->
       <svg viewBox="0 0 700 650">
         <defs>
           <linearGradient id="sunPetal" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -197,83 +194,84 @@
           </g>
         </defs>
 
-        <!-- TALLOS - OBLIGANDO A CHROME A DIBUJAR CON CURVAS CÚBICAS PERFECTAS -->
+        <!-- TALLOS REDISEÑADOS PARA EL CLÚSTER CENTRAL -->
         <g class="stem-group" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round" fill="none">
           <!-- Girasoles -->
-          <!-- Curva matemática Cúbica para el centro (BugFix Chrome Mobile) -->
-          <path d="M 350 580 C 340 400, 360 250, 350 180" /> 
-          <path d="M 350 580 C 290 450, 200 350, 180 270" />
-          <path d="M 350 580 C 410 450, 500 350, 520 270" />
-          <path d="M 350 580 C 310 500, 260 450, 240 400" />
-          <path d="M 350 580 C 390 500, 440 450, 460 400" />
-          <!-- Tulipanes (Espaciados agresivamente a la izquierda) -->
-          <path d="M 350 580 C 230 450, 120 350, 80 240" stroke-width="4.5"/>
-          <path d="M 350 580 C 200 480, 90 400, 50 350" stroke-width="4.5"/>
-          <path d="M 350 580 C 250 500, 160 450, 120 430" stroke-width="4.5"/>
-          <path d="M 350 580 C 240 460, 170 380, 140 320" stroke-width="4.5"/>
-          <!-- Lirios (Espaciados agresivamente a la derecha) -->
-          <path d="M 350 580 C 470 450, 580 350, 620 240" stroke-width="4.5"/>
-          <path d="M 350 580 C 500 480, 610 400, 650 350" stroke-width="4.5"/>
-          <path d="M 350 580 C 450 500, 540 450, 580 430" stroke-width="4.5"/>
-          <path d="M 350 580 C 460 460, 530 380, 560 320" stroke-width="4.5"/>
+          <path d="M 350 580 C 345 450, 355 300, 350 200" /> <!-- Central top -->
+          <path d="M 350 580 C 310 450, 270 350, 240 260" /> <!-- Mid left -->
+          <path d="M 350 580 C 390 450, 430 350, 460 260" /> <!-- Mid right -->
+          <path d="M 350 580 C 330 480, 310 420, 280 350" /> <!-- Bot left -->
+          <path d="M 350 580 C 370 480, 390 420, 420 350" /> <!-- Bot right -->
+          
+          <!-- Tulipanes (Empujados a la izquierda para no taparse) -->
+          <path d="M 350 580 C 220 450, 110 350, 70 240" stroke-width="4.5"/>
+          <path d="M 350 580 C 190 480, 80 400, 40 350" stroke-width="4.5"/>
+          <path d="M 350 580 C 240 500, 150 450, 100 430" stroke-width="4.5"/>
+          <path d="M 350 580 C 230 460, 160 380, 130 320" stroke-width="4.5"/>
+          
+          <!-- Lirios (Empujados a la derecha para no taparse) -->
+          <path d="M 350 580 C 480 450, 590 350, 630 240" stroke-width="4.5"/>
+          <path d="M 350 580 C 510 480, 620 400, 660 350" stroke-width="4.5"/>
+          <path d="M 350 580 C 460 500, 550 450, 600 430" stroke-width="4.5"/>
+          <path d="M 350 580 C 470 460, 540 380, 570 320" stroke-width="4.5"/>
         </g>
 
-        <!-- HOJAS -->
+        <!-- HOJAS REAJUSTADAS A LOS NUEVOS TALLOS -->
         <g class="delay-leaf">
-          <use href="#leaf-shape" transform="translate(320, 360) rotate(45) scale(0.9)"/>
-          <use href="#leaf-shape" transform="translate(380, 360) rotate(-45) scale(0.9)"/>
-          <use href="#leaf-shape" transform="translate(260, 460) rotate(-60) scale(0.8)"/>
-          <use href="#leaf-shape" transform="translate(440, 460) rotate(60) scale(0.8)"/>
-          <use href="#leaf-shape" transform="translate(180, 410) rotate(-70) scale(0.7)"/>
-          <use href="#leaf-shape" transform="translate(520, 410) rotate(70) scale(0.7)"/>
+          <use href="#leaf-shape" transform="translate(300, 390) rotate(45) scale(0.9)"/>
+          <use href="#leaf-shape" transform="translate(400, 390) rotate(-45) scale(0.9)"/>
+          <use href="#leaf-shape" transform="translate(260, 480) rotate(-60) scale(0.8)"/>
+          <use href="#leaf-shape" transform="translate(440, 480) rotate(60) scale(0.8)"/>
+          <use href="#leaf-shape" transform="translate(190, 430) rotate(-70) scale(0.7)"/>
+          <use href="#leaf-shape" transform="translate(510, 430) rotate(70) scale(0.7)"/>
         </g>
 
-        <!-- TULIPANES (Lejos de los girasoles para no estorbar) -->
+        <!-- TULIPANES (Margen izquierdo seguro) -->
         <g class="delay-1">
-          <g transform="translate(80, 240) rotate(-35) scale(1.3)"><g class="bloom">
+          <g transform="translate(70, 240) rotate(-35) scale(1.3)"><g class="bloom">
             <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
             <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
           </g></g>
-          <g transform="translate(50, 350) rotate(-50) scale(1.3)"><g class="bloom">
+          <g transform="translate(40, 350) rotate(-50) scale(1.3)"><g class="bloom">
             <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
             <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
           </g></g>
-          <g transform="translate(120, 430) rotate(-25) scale(1.2)"><g class="bloom">
+          <g transform="translate(100, 430) rotate(-25) scale(1.2)"><g class="bloom">
             <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
             <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
           </g></g>
-          <g transform="translate(140, 320) rotate(-20) scale(1.15)"><g class="bloom">
+          <g transform="translate(130, 320) rotate(-20) scale(1.15)"><g class="bloom">
             <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
             <path d="M 0 -35 C -12 -15, -12 15, 0 20 C 12 15, 12 -15, 0 -35 Z" fill="#f8bbd0"/>
           </g></g>
         </g>
 
-        <!-- LIRIOS (Lejos de los girasoles para no estorbar) -->
+        <!-- LIRIOS (Margen derecho seguro) -->
         <g class="delay-2">
-          <g transform="translate(620, 240) rotate(35) scale(1.1)"><g class="bloom">
+          <g transform="translate(630, 240) rotate(35) scale(1.1)"><g class="bloom">
             <use href="#lily-petal-shape" transform="rotate(0)"/><use href="#lily-petal-shape" transform="rotate(60)"/><use href="#lily-petal-shape" transform="rotate(120)"/><use href="#lily-petal-shape" transform="rotate(180)"/><use href="#lily-petal-shape" transform="rotate(240)"/><use href="#lily-petal-shape" transform="rotate(300)"/>
             <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
             <circle cx="-5" cy="-25" r="3" fill="#e65100"/><circle cx="5" cy="-25" r="3" fill="#e65100"/><circle cx="0" cy="-28" r="3" fill="#e65100"/>
           </g></g>
-          <g transform="translate(650, 350) rotate(50) scale(1.1)"><g class="bloom">
+          <g transform="translate(660, 350) rotate(50) scale(1.1)"><g class="bloom">
             <use href="#lily-petal-shape" transform="rotate(0)"/><use href="#lily-petal-shape" transform="rotate(60)"/><use href="#lily-petal-shape" transform="rotate(120)"/><use href="#lily-petal-shape" transform="rotate(180)"/><use href="#lily-petal-shape" transform="rotate(240)"/><use href="#lily-petal-shape" transform="rotate(300)"/>
             <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
             <circle cx="-5" cy="-25" r="3" fill="#e65100"/><circle cx="5" cy="-25" r="3" fill="#e65100"/><circle cx="0" cy="-28" r="3" fill="#e65100"/>
           </g></g>
-          <g transform="translate(580, 430) rotate(25) scale(1)"><g class="bloom">
+          <g transform="translate(600, 430) rotate(25) scale(1)"><g class="bloom">
             <use href="#lily-petal-shape" transform="rotate(0)"/><use href="#lily-petal-shape" transform="rotate(60)"/><use href="#lily-petal-shape" transform="rotate(120)"/><use href="#lily-petal-shape" transform="rotate(180)"/><use href="#lily-petal-shape" transform="rotate(240)"/><use href="#lily-petal-shape" transform="rotate(300)"/>
             <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
           </g></g>
-          <g transform="translate(560, 320) rotate(20) scale(0.95)"><g class="bloom">
+          <g transform="translate(570, 320) rotate(20) scale(0.95)"><g class="bloom">
             <use href="#lily-petal-shape" transform="rotate(0)"/><use href="#lily-petal-shape" transform="rotate(60)"/><use href="#lily-petal-shape" transform="rotate(120)"/><use href="#lily-petal-shape" transform="rotate(180)"/><use href="#lily-petal-shape" transform="rotate(240)"/><use href="#lily-petal-shape" transform="rotate(300)"/>
             <path d="M0 0 L -5 -25 M0 0 L 5 -25 M0 0 L 0 -28" stroke="#fbc02d" stroke-width="2.5"/>
           </g></g>
         </g>
 
-        <!-- GIRASOLES SEPARADOS (Cada uno con su espacio personal) -->
+        <!-- CLÚSTER DE GIRASOLES MASIVOS Y JUNTOS EN EL CENTRO -->
         <g class="delay-3">
           <!-- Central Superior -->
-          <g transform="translate(350, 180) scale(1.5)"><g class="bloom">
+          <g transform="translate(350, 200) scale(1.8)"><g class="bloom">
             <use href="#sun-petal-shape" transform="rotate(0)"/><use href="#sun-petal-shape" transform="rotate(20)"/><use href="#sun-petal-shape" transform="rotate(40)"/><use href="#sun-petal-shape" transform="rotate(60)"/><use href="#sun-petal-shape" transform="rotate(80)"/><use href="#sun-petal-shape" transform="rotate(100)"/><use href="#sun-petal-shape" transform="rotate(120)"/><use href="#sun-petal-shape" transform="rotate(140)"/><use href="#sun-petal-shape" transform="rotate(160)"/><use href="#sun-petal-shape" transform="rotate(180)"/><use href="#sun-petal-shape" transform="rotate(200)"/><use href="#sun-petal-shape" transform="rotate(220)"/><use href="#sun-petal-shape" transform="rotate(240)"/><use href="#sun-petal-shape" transform="rotate(260)"/><use href="#sun-petal-shape" transform="rotate(280)"/><use href="#sun-petal-shape" transform="rotate(300)"/><use href="#sun-petal-shape" transform="rotate(320)"/><use href="#sun-petal-shape" transform="rotate(340)"/>
             <g transform="scale(0.85) rotate(10)">
               <use href="#sun-petal-shape" transform="rotate(0)"/><use href="#sun-petal-shape" transform="rotate(20)"/><use href="#sun-petal-shape" transform="rotate(40)"/><use href="#sun-petal-shape" transform="rotate(60)"/><use href="#sun-petal-shape" transform="rotate(80)"/><use href="#sun-petal-shape" transform="rotate(100)"/><use href="#sun-petal-shape" transform="rotate(120)"/><use href="#sun-petal-shape" transform="rotate(140)"/><use href="#sun-petal-shape" transform="rotate(160)"/><use href="#sun-petal-shape" transform="rotate(180)"/><use href="#sun-petal-shape" transform="rotate(200)"/><use href="#sun-petal-shape" transform="rotate(220)"/><use href="#sun-petal-shape" transform="rotate(240)"/><use href="#sun-petal-shape" transform="rotate(260)"/><use href="#sun-petal-shape" transform="rotate(280)"/><use href="#sun-petal-shape" transform="rotate(300)"/><use href="#sun-petal-shape" transform="rotate(320)"/><use href="#sun-petal-shape" transform="rotate(340)"/>
@@ -282,7 +280,7 @@
           </g></g>
           
           <!-- Medio Izquierdo -->
-          <g transform="translate(180, 270) scale(1.2)"><g class="bloom">
+          <g transform="translate(240, 260) scale(1.5)"><g class="bloom">
             <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
             <g transform="scale(0.85) rotate(20)">
               <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
@@ -291,7 +289,7 @@
           </g></g>
           
           <!-- Medio Derecho -->
-          <g transform="translate(520, 270) scale(1.2)"><g class="bloom">
+          <g transform="translate(460, 260) scale(1.5)"><g class="bloom">
             <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
             <g transform="scale(0.85) rotate(20)">
               <use href="#sun-petal-shape" transform="rotate(10)"/><use href="#sun-petal-shape" transform="rotate(30)"/><use href="#sun-petal-shape" transform="rotate(50)"/><use href="#sun-petal-shape" transform="rotate(70)"/><use href="#sun-petal-shape" transform="rotate(90)"/><use href="#sun-petal-shape" transform="rotate(110)"/><use href="#sun-petal-shape" transform="rotate(130)"/><use href="#sun-petal-shape" transform="rotate(150)"/><use href="#sun-petal-shape" transform="rotate(170)"/><use href="#sun-petal-shape" transform="rotate(190)"/><use href="#sun-petal-shape" transform="rotate(210)"/><use href="#sun-petal-shape" transform="rotate(230)"/><use href="#sun-petal-shape" transform="rotate(250)"/><use href="#sun-petal-shape" transform="rotate(270)"/><use href="#sun-petal-shape" transform="rotate(290)"/><use href="#sun-petal-shape" transform="rotate(310)"/><use href="#sun-petal-shape" transform="rotate(330)"/><use href="#sun-petal-shape" transform="rotate(350)"/>
@@ -300,7 +298,7 @@
           </g></g>
           
           <!-- Base Izquierda -->
-          <g transform="translate(240, 400) scale(1.15)"><g class="bloom">
+          <g transform="translate(280, 350) scale(1.4)"><g class="bloom">
             <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
             <g transform="scale(0.85) rotate(15)">
               <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
@@ -309,7 +307,7 @@
           </g></g>
           
           <!-- Base Derecha -->
-          <g transform="translate(460, 400) scale(1.15)"><g class="bloom">
+          <g transform="translate(420, 350) scale(1.4)"><g class="bloom">
             <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
             <g transform="scale(0.85) rotate(15)">
               <use href="#sun-petal-shape" transform="rotate(5)"/><use href="#sun-petal-shape" transform="rotate(25)"/><use href="#sun-petal-shape" transform="rotate(45)"/><use href="#sun-petal-shape" transform="rotate(65)"/><use href="#sun-petal-shape" transform="rotate(85)"/><use href="#sun-petal-shape" transform="rotate(105)"/><use href="#sun-petal-shape" transform="rotate(125)"/><use href="#sun-petal-shape" transform="rotate(145)"/><use href="#sun-petal-shape" transform="rotate(165)"/><use href="#sun-petal-shape" transform="rotate(185)"/><use href="#sun-petal-shape" transform="rotate(205)"/><use href="#sun-petal-shape" transform="rotate(225)"/><use href="#sun-petal-shape" transform="rotate(245)"/><use href="#sun-petal-shape" transform="rotate(265)"/><use href="#sun-petal-shape" transform="rotate(285)"/><use href="#sun-petal-shape" transform="rotate(305)"/><use href="#sun-petal-shape" transform="rotate(325)"/><use href="#sun-petal-shape" transform="rotate(345)"/>
