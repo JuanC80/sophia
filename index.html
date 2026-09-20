@@ -22,7 +22,7 @@
       position: relative;
     }
 
-    /* Capa de fondo independiente: Luciérnagas */
+    /* Luciérnagas */
     #ambient-canvas {
       position: fixed;
       inset: 0;
@@ -81,7 +81,6 @@
       z-index: 10; transition: opacity 1.5s ease 0.4s;
     }
 
-    /* Contenedor exactamente idéntico al que te funcionó */
     .bouquet-wrapper {
       width: 100%; max-width: 600px;
       height: 520px; position: relative; margin-bottom: 25px;
@@ -90,7 +89,6 @@
       user-select: none;
     }
 
-    /* La brisa se aplica internamente en el grupo SVG para no alterar márgenes ni el centrado exterior */
     .loaded #inner-bouquet-group {
       transform-origin: 300px 600px;
       animation: safeBreeze 5.5s ease-in-out 3.5s infinite alternate;
@@ -98,8 +96,8 @@
 
     @keyframes safeBreeze {
       0% { transform: rotate(0deg); }
-      50% { transform: rotate(0.65deg); }
-      100% { transform: rotate(-0.65deg); }
+      50% { transform: rotate(0.80deg); }
+      100% { transform: rotate(-0.80deg); }
     }
 
     svg { width: 100%; height: 100%; overflow: visible; }
@@ -162,7 +160,7 @@
     .music-pill.playing .icon-spin { animation: spin 4s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* Partículas al tocar */
+    /* Partículas */
     .tap-sparkle {
       position: fixed;
       pointer-events: none;
@@ -178,14 +176,13 @@
 </head>
 <body>
 
-  <!-- Canvas de luciérnagas -->
   <canvas id="ambient-canvas"></canvas>
 
   <div class="ambient-glow"></div>
   <audio id="bg-audio" src="musica.mp3" loop preload="auto"></audio>
 
   <div id="music-btn" class="music-pill" onclick="toggleAudio()">
-    <span class="icon-spin">🎵</span>
+    <span class="icon-spin">💿</span>
     <span id="music-state">Pausar</span>
   </div>
 
@@ -199,7 +196,7 @@
 
   <div id="main-content">
     <div class="bouquet-wrapper" id="bouquet-touch-target">
-      <!-- Mismo viewBox calibrado -->
+      
       <svg viewBox="0 0 600 650">
         <defs>
           <linearGradient id="sunPetal" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -239,9 +236,8 @@
           </g>
         </defs>
 
-        <!-- Grupo interno para animación de brisa segura -->
         <g id="inner-bouquet-group">
-          <!-- TALLOS -->
+          <!-- Tallos -->
           <g class="stem-group" stroke="url(#stemGrad)" stroke-width="6.5" stroke-linecap="round" fill="none">
             <!-- Girasoles -->
             <path d="M 300 600 C 290 400, 310 250, 300 180" /> 
@@ -261,7 +257,7 @@
             <path d="M 300 600 C 400 480, 450 420, 500 380" stroke-width="4.5"/>
           </g>
 
-          <!-- HOJAS -->
+          <!-- Hojas -->
           <g class="delay-leaf">
             <use href="#leaf-shape" transform="translate(250, 380) rotate(45) scale(0.9)"/>
             <use href="#leaf-shape" transform="translate(350, 380) rotate(-45) scale(0.9)"/>
@@ -271,7 +267,7 @@
             <use href="#leaf-shape" transform="translate(430, 380) rotate(70) scale(0.7)"/>
           </g>
 
-          <!-- TULIPANES -->
+          <!-- Tulipanes -->
           <g class="delay-1">
             <g transform="translate(80, 230) rotate(-35) scale(1.3)"><g class="bloom">
               <path d="M -15 15 C -25 -25, 0 -40, 0 -40 C 0 -40, 25 -25, 15 15 Z" fill="url(#tulipGrad)"/>
@@ -291,7 +287,7 @@
             </g></g>
           </g>
 
-          <!-- 4 LIRIOS (TODOS CON SUS BOLITAS NARANJAS) -->
+          <!-- 4 Cosos de los Lirios -->
           <g class="delay-2">
             <g transform="translate(520, 230) rotate(35) scale(1.15)"><g class="bloom">
               <use href="#lily-petal-shape" transform="rotate(0)"/><use href="#lily-petal-shape" transform="rotate(60)"/><use href="#lily-petal-shape" transform="rotate(120)"/><use href="#lily-petal-shape" transform="rotate(180)"/><use href="#lily-petal-shape" transform="rotate(240)"/><use href="#lily-petal-shape" transform="rotate(300)"/>
@@ -315,7 +311,7 @@
             </g></g>
           </g>
 
-          <!-- 5 GIRASOLES CLÚSTER -->
+  
           <g class="delay-3">
             <g transform="translate(300, 180) scale(1.8)"><g class="bloom">
               <use href="#sun-petal-shape" transform="rotate(0)"/><use href="#sun-petal-shape" transform="rotate(20)"/><use href="#sun-petal-shape" transform="rotate(40)"/><use href="#sun-petal-shape" transform="rotate(60)"/><use href="#sun-petal-shape" transform="rotate(80)"/><use href="#sun-petal-shape" transform="rotate(100)"/><use href="#sun-petal-shape" transform="rotate(120)"/><use href="#sun-petal-shape" transform="rotate(140)"/><use href="#sun-petal-shape" transform="rotate(160)"/><use href="#sun-petal-shape" transform="rotate(180)"/><use href="#sun-petal-shape" transform="rotate(200)"/><use href="#sun-petal-shape" transform="rotate(220)"/><use href="#sun-petal-shape" transform="rotate(240)"/><use href="#sun-petal-shape" transform="rotate(260)"/><use href="#sun-petal-shape" transform="rotate(280)"/><use href="#sun-petal-shape" transform="rotate(300)"/><use href="#sun-petal-shape" transform="rotate(320)"/><use href="#sun-petal-shape" transform="rotate(340)"/>
@@ -358,7 +354,7 @@
             </g></g>
           </g>
 
-          <!-- LAZO -->
+          <!-- Lazo -->
           <g transform="translate(300, 600)">
             <g class="bow-animation">
               <path d="M 0 0 C -30 -30 -60 10 0 15" fill="#f06292"/>
@@ -428,7 +424,7 @@
       else { audio.play(); musicBtn.classList.add('playing'); musicState.textContent = 'Pausar'; isPlaying = true; }
     }
 
-    /* 1. SISTEMA DE LUCIÉRNAGAS FLOTANTES (CANVAS AISLADO) */
+
     const canvas = document.getElementById('ambient-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -486,7 +482,7 @@
       animate();
     }
 
-    /* 2. CHISPAS AL TOCAR EL RAMO */
+    
     function createSparkles(x, y) {
       const colors = ['#ffe082', '#ff80ab', '#ea80fc', '#ffffff'];
       for (let i = 0; i < 8; i++) {
